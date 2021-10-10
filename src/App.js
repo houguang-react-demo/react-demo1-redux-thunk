@@ -1,16 +1,13 @@
 import React, {Component} from 'react';
-import {connect} from "react-redux";
-import {add, asyncAdd, reduce} from "./redux/count.redux";
+import store from "./store";
 
-@connect(state=>({count:state}),{add,reduce,asyncAdd})
 class App extends Component {
     render() {
         return (
             <div>
-                <div>state:{this.props.count}</div>
-                <button onClick={()=>this.props.reduce()}>-1</button>
-                <button onClick={()=>this.props.add()}>+1</button>
-                <button onClick={()=>this.props.asyncAdd()}>延时+1</button>
+                <div>state:{store.getState()}</div>
+                <button onClick={() => store.dispatch({type: "add"})}>+1</button>
+                <button onClick={() => store.dispatch({type: "reduce"})}>-1</button>
             </div>
         );
     }
