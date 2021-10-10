@@ -1,25 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import {connect} from "react-redux";
+import {add, asyncAdd, reduce} from "./redux/count.redux";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+@connect(state=>({count:state}),{add,reduce,asyncAdd})
+class App extends Component {
+    render() {
+        return (
+            <div>
+                <div>state:{this.props.count}</div>
+                <button onClick={()=>this.props.reduce()}>-1</button>
+                <button onClick={()=>this.props.add()}>+1</button>
+                <button onClick={()=>this.props.asyncAdd()}>延时+1</button>
+            </div>
+        );
+    }
 }
 
 export default App;
